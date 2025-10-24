@@ -1,0 +1,141 @@
+# === GLOBAL ===
+# Environment files
+.env
+*.env
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Log & temp
+*.log
+*.tmp
+*.swp
+*.swo
+
+# System & IDEs
+.vscode/
+.idea/
+.DS_Store
+*.iml
+*.ipr
+*.iws
+
+# === BACKEND (Python / SQLAlchemy / Alembic) ===
+instance/
+.pytest_cache/
+*.sqlite3
+*.db
+env/
+venv/
+.venv/
+ENV/
+Pipfile.lock
+requirements.txt~
+
+# Alembic artifacts
+alembic/script.py.mako
+alembic/versions/__pycache__/
+
+# === FLUTTER / DART PROJECT ===
+# Dart / Pub
+.dart_tool/
+.packages
+.pub/
+.pub-cache/
+build/
+.metadata
+pubspec.lock~
+
+# Android/Gradle
+android/.gradle/
+android/app/build/
+.gradle/
+*.apk
+*.ap_
+*.class
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# iOS/Xcode
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Runner.xcworkspace/
+ios/Pods/
+ios/Podfile.lock
+ios/.symlinks/
+ios/Flutter/ephemeral/
+Flutter/Generated.xcconfig
+GeneratedPluginRegistrant.*
+**/ios/Flutter/.last_build_id
+
+# macOS
+macos/Flutter/ephemeral/
+macos/Pods/
+macos/.symlinks/
+macos/Podfile.lock
+
+# Web
+web/build/
+
+# Linux
+linux/flutter/ephemeral/
+
+# Windows
+windows/flutter/ephemeral/
+
+# Firebase
+firebase.json
+*.firebase
+firebase_options.dart
+
+
+# Google Services
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
+# Flutter Symbolication / Obfuscation
+app.*.symbols
+app.*.map.json
+
+# Flutter API docs
+**/doc/api/
+
+# Migration helper
+migrate_working_dir/
+*.flutter-plugins
+*.flutter-plugins-dependencies
+*.GeneratedPluginRegistrant.swift
+*.generated_plugin_registrant.cc
+*.generated_plugins.cmake
+kundendokumentation_builder/.flutter-plugins
+kundendokumentation_builder/.flutter-plugins-dependencies
+kundendokumentation_builder/macos/Flutter/GeneratedPluginRegistrant.swift
+kundendokumentation_builder/windows/flutter/generated_plugin_registrant.cc
+kundendokumentation_builder/windows/flutter/generated_plugins.cmake
+
+# Flutter/Dart generierte Dateien
+**/GeneratedPluginRegistrant.dart
+**/generated_plugin_registrant.dart
+
+# Build-Ordner und generierte Dateien
+/build/
+/android/app/build/
+/ios/Runner.build/
+/web/generated_plugin_registrant.dart
+
+# IntelliJ/VSCode/IDE
+.idea/
+.vscode/
+
+# Sonstige generierte Dateien
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+
+
+# Service Account Firebase Token Auth
+kundendokumentation-builder-1487ddaf5b1c.json
