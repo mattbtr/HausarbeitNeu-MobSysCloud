@@ -1,0 +1,44 @@
+// // zentrale Route-Konfiguration
+import 'package:flutter/material.dart';
+import 'package:frontend_flutter/home/home_screen.dart';
+//import 'package:frontend_flutter/report/create_report.dart';
+//import 'package:frontend_flutter/report/reports_screen.dart';
+//import 'package:frontend_flutter/report/report_detail_screen.dart';
+//import 'package:frontend_flutter/profile/profile_screen.dart';
+//import 'package:frontend_flutter/report/data_upload.dart';
+
+class AppRoutes {
+  static const home = '/home';
+  static const upload = '/upload';
+  static const reports = '/reports';
+  static const reportDetail = '/report_detail';
+  static const profile = '/profile';
+  static const createReport = '/create_report';
+  // usw.
+
+  static Map<String, WidgetBuilder> routes = {
+    home: (_) => const HomeScreen(),
+    //reports: (_) => const ReportsOverviewScreen(),
+    //profile: (_) => const ProfileScreen(),
+    //createReport: (_) => const CreateReportScreen(),
+
+    /*reportDetail: (context) {
+      final args = ModalRoute.of(context)?.settings.arguments;
+      debugPrint('Argumente: $args'); // <-- Debug-Ausgabe
+      if (args is Map<String, dynamic> && args['id'] != null) {
+        return ReportDetailScreen(reportId: args['id'] as int);
+      }
+      return const Scaffold(body: Center(child: Text("Ungültiger Bericht")));
+    },
+
+    upload: (context) {
+      final args = ModalRoute.of(context)?.settings.arguments;
+      if (args is Map<String, dynamic> && args['reportId'] != null) {
+        return DataUploadScreen(reportId: args['reportId'] as int);
+      }
+      return const Scaffold(body: Center(child: Text("Ungültiger Bericht")));
+    },
+    */
+    // usw.
+  };
+}
