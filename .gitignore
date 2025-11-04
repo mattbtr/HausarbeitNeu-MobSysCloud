@@ -83,6 +83,11 @@ web/build/
 
 # Linux
 linux/flutter/ephemeral/
+frontend_flutter/linux/flutter/CMakeLists.txt
+frontend_flutter/linux/flutter/generated_plugin_registrant.cc
+frontend_flutter/linux/flutter/generated_plugin_registrant.h
+frontend_flutter/linux/flutter/generated_plugins.cmake
+frontend_flutter/linux/CMakeLists.txt
 
 # Windows
 windows/flutter/ephemeral/
@@ -138,4 +143,10 @@ frontend_flutter/windows/flutter/generated_plugins.cmake
 
 
 # Service Account Firebase Token Auth
-kundendokumentation-builder-1487ddaf5b1c.json
+hausarbeitneu-firebase-5720997c85e6.json
+frontend_flutter/linux/flutter/generated_plugin_registrant.cc
+frontend_flutter/linux/flutter/generated_plugin_registrant.h
+frontend_flutter/linux/flutter/generated_plugins.cmake
+frontend_flutter/windows/flutter/generated_plugin_registrant.cc
+frontend_flutter/windows/flutter/generated_plugin_registrant.h
+frontend_flutter/windows/flutter/generated_plugins.cmake
