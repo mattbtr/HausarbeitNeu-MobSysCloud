@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_flutter/auth/auth_logic.dart'; // (zeigt Login oder HomeScrenn je Auth.status)
+import 'package:frontend_flutter/routes/auth/auth_logic.dart'; // (zeigt Login oder HomeScrenn je Auth.status)
 import 'routes.dart';
 
 class MainApp extends StatelessWidget {
