@@ -6,6 +6,8 @@ from app import models, schemas
 
 router = APIRouter(prefix="/kunden", tags=["Kunden"])
 
+# Standard-Routing von Kunden zum Testen --> CRUD-Operationen!
+
 @router.post("/", response_model=schemas.Kunde)
 def create_kunde(kunde: schemas.KundeCreate, db: Session = Depends(get_db)):
     db_kunde = models.Kunde(**kunde.model_dump())
