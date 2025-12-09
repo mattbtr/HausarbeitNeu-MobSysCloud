@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       home: AuthLogic(), // Start-Widget abhängig vom Login-Status
-      routes: AppRoutes.routes,
+      routes: AppRoutes.routes, // zentrale Routing-Konfig
     );
   }
 }

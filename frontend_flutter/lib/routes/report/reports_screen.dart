@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/routes.dart';
-import '../../models/report_model.dart';
-import '../../services/report_service.dart';
+import '../../core/models/report_model.dart';
+import '../../core/services/report_service.dart';
 
 class ReportsOverviewScreen extends StatefulWidget {
   const ReportsOverviewScreen({super.key});

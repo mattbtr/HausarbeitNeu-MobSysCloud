@@ -1,10 +1,10 @@
-/*import 'package:flutter/material.dart';
-import 'package:kundendokumentation_builder/core/services/pdf_export_service.dart';
+import 'package:flutter/material.dart';
+import 'package:frontend_flutter/core/services/pdfExport_service.dart'; // enthält die Funktionen zum PDF-Export und E-Mail-Versand
 
 class ExportDialog extends StatelessWidget {
   final int reportId;
 
-  const ExportDialog({super.key, required this.reportId});
+  const ExportDialog({super.key, required this.reportId});  // übergeben des Report-Id zur Kennzeichnung welcher Bericht exportiert werden soll
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class ExportDialog extends StatelessWidget {
             leading: const Icon(Icons.picture_as_pdf),
             title: const Text('Als PDF exportieren'),
             onTap: () async {
-              Navigator.pop(context);
+              Navigator.pop(context);   // Schließt den Dialog, ruft PdfExportService.exportAsPDF(reportId) auf aus pdfExport_service.dart
               await PdfExportService.exportAsPDF(
                 reportId,
                 onError:
@@ -30,7 +30,7 @@ class ExportDialog extends StatelessWidget {
             leading: const Icon(Icons.email),
             title: const Text('Als PDF exportieren & per E-Mail senden'),
             onTap: () async {
-              Navigator.pop(context);
+              Navigator.pop(context);   // ruft exportAndSendEmail(reportId) auf aus pdfExport_service.dart
 
               await PdfExportService.exportAndSendEmail(
                 reportId,
@@ -45,11 +45,10 @@ class ExportDialog extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.cancel),
             title: const Text('Abbrechen'),
-            onTap: () => Navigator.pop(context),
+            onTap: () => Navigator.pop(context),    // Schließt den export-Dialog.
           ),
         ],
       ),
     );
   }
 }
-*/

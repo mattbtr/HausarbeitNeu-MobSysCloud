@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:logger/logger.dart';
 import 'package:frontend_flutter/widgets/animated_button.dart';
-import 'package:frontend_flutter/home/camera_screen.dart';
+import 'package:frontend_flutter/routes/home/camera_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
