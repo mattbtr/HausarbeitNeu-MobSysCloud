@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_flutter/core/services/pdfExport_service.dart'; // enthält die Funktionen zum PDF-Export und E-Mail-Versand
+import 'package:frontend_flutter/core/services/pdf_export_service.dart'; // enthält die Funktionen zum PDF-Export und E-Mail-Versand
 
 class ExportDialog extends StatelessWidget {
   final int reportId;

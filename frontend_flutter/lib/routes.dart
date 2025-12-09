@@ -1,11 +1,11 @@
 // zentrale Route-Konfiguration
 import 'package:flutter/material.dart';
 import 'package:frontend_flutter/routes/home/home_screen.dart';
-import 'package:frontend_flutter/routes/report/createReport_screen.dart';
+import 'package:frontend_flutter/routes/report/create_report_screen.dart';
 import 'package:frontend_flutter/routes/report/reports_screen.dart';
-import 'package:frontend_flutter/routes/report/reportDetail_screen.dart';
+import 'package:frontend_flutter/routes/report/report_detail_screen.dart';
 import 'package:frontend_flutter/routes/profile/profile_screen.dart';
-import 'package:frontend_flutter/routes/report/dataUpload_screen.dart';
+import 'package:frontend_flutter/routes/report/data_upload_screen.dart';
 
 class AppRoutes {
   static const home = '/home';

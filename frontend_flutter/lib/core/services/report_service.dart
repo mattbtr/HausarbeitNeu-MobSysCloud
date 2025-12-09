@@ -1,25 +1,27 @@
 import 'dart:io';
-
+import 'package:logger/logger.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/report_model.dart';
 import '../models/eintrag_model.dart';
 import '../models/stammdaten_model.dart';
 
+final logger = Logger();
+
 class ReportService {
   static Future<int> submitReport(Report report) async {
     final url = Uri.parse('http://192.168.0.108:8000/berichte/');
     final payload = jsonEncode(report.toJson());
-    print('➡️ POST $url');
-    print('📦 Body: $payload');
+    logger.e('➡️ POST $url');
+    logger.e('📦 Body: $payload');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(report.toJson()),
     );
 
-    print('⬅️ Status: ${response.statusCode}');
-    print('⬅️ Response: ${response.body}');
+    logger.e('⬅️ Status: ${response.statusCode}');
+    logger.e('⬅️ Response: ${response.body}');
 
     if (response.statusCode != 200 && response.statusCode != 201) {
       throw Exception('Fehler beim Speichern des Berichts: ${response.body}');
@@ -112,7 +114,7 @@ class ReportService {
 
       final response = await request.send();
       final responseBody = await response.stream.bytesToString();
-      print('Upload JSON Response: ${response.statusCode} - $responseBody');
+      logger.e('Upload JSON Response: ${response.statusCode} - $responseBody');
       return response.statusCode == 200;
     } catch (e) {
       return false;

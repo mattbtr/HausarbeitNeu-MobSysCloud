@@ -2,6 +2,9 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/standort_model.dart';
+import 'package:logger/logger.dart';
+
+final logger = Logger();
 
 class StandortService {
   static Future<List<Standort>> fetchStandorte(int kundenId) async {
@@ -10,8 +13,8 @@ class StandortService {
     );
     final response = await http.get(url);
 
-    print("HTTP Status: ${response.statusCode}");
-    print("Antwort: ${response.body}");
+    logger.e("HTTP Status: ${response.statusCode}");
+    logger.e("Antwort: ${response.body}");
 
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body);

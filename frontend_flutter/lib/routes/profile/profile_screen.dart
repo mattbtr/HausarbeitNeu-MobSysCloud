@@ -15,7 +15,10 @@ class ProfileScreen extends StatelessWidget {
 
   void _signOut(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    Navigator.pushReplacementNamed(context, '/');
+    if (context.mounted){
+      Navigator.pushReplacementNamed(context, '/');
+    }
+    
   }
 
   void _changePassword(BuildContext context) {

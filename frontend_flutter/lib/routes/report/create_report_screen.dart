@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import '../../core/models/kunde_model.dart';
 import '../../core/models/standort_model.dart';
 import '../../core/models/abteilung_model.dart';
@@ -9,6 +10,8 @@ import '../../core/services/standort_service.dart';
 import '../../core/services/abteilung_service.dart';
 import '../../core/services/anlagen_service.dart';
 import '../../core/services/report_service.dart';
+
+final logger = Logger();
 
 class CreateReportScreen extends StatefulWidget {
   const CreateReportScreen({super.key});
@@ -66,7 +69,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
   }
 
   Future<void> _loadStandorte(int kundenId) async {
-    print("Lade Standorte für Kunde $kundenId...");
+    logger.e("Lade Standorte für Kunde $kundenId...");
     setState(() {
       isLoadingStandorte = true;
       standorte = [];
@@ -77,7 +80,7 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
       anlagen.clear();
     });
     final result = await StandortService.fetchStandorte(kundenId);
-    print("Ergebnis: ${result.length} Standorte gefunden.");
+    logger.e("Ergebnis: ${result.length} Standorte gefunden.");
 
     if (!mounted) return;
 
@@ -122,13 +125,14 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
   }
 
   Future<void> _submitReport() async {
-    print('SubitReport aufgerufen');
-    print(titel);
-    print(beschreibung);
-    print(selectedDate);
-    print(selectedAnlage?.id);
+    logger.e('SubitReport aufgerufen');
+    logger.e(titel);
+    logger.e(beschreibung);
+    logger.e(selectedDate);
+    logger.e(selectedAnlage?.id);
 
     if (selectedAnlage == null || titel.isEmpty || beschreibung.isEmpty) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Bitte alle Felder ausfüllen")),
       );
@@ -146,6 +150,8 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
 
     try {
       final result = await ReportService.submitReport(report);
+      if (!mounted) return;
+      
       _reportId = result;
       setState(() {
         _isReportSaved = true;

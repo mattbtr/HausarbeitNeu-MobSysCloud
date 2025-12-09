@@ -32,11 +32,15 @@ class _ReportsOverviewScreenState extends State<ReportsOverviewScreen> {
     try {
       reports = await ReportService.fetchReports();
     } catch (e) {
+      if(!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Fehler beim Laden: $e')));
     } finally {
-      setState(() => isLoading = false);
+      if(mounted){
+        setState(() => isLoading = false);
+      }
+      
     }
   }
 
@@ -96,6 +100,7 @@ class _ReportsOverviewScreenState extends State<ReportsOverviewScreen> {
 
     try {
       await ReportService.deleteReport(reportId!);
+      if(!mounted) return;
       setState(() {
         reports.removeWhere((r) => r.id == reportId);
       });
@@ -103,6 +108,7 @@ class _ReportsOverviewScreenState extends State<ReportsOverviewScreen> {
         context,
       ).showSnackBar(const SnackBar(content: Text('Bericht gelöscht!')));
     } catch (e) {
+      if(!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Fehler beim Löschen: $e')));

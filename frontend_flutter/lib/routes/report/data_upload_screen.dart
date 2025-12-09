@@ -22,12 +22,16 @@ class _DataUploadScreenState extends State<DataUploadScreen> {
     );
 
     if (result != null && result.files.isNotEmpty) {
+
+      if(!mounted) return;
       setState(() => _isUploading = true);
       final file = File(result.files.single.path!);
       final success = await ReportService.uploadJsonEntries(
         widget.reportId,
         file,
       );
+
+      if(!mounted) return;
       setState(() => _isUploading = false);
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -44,6 +48,8 @@ class _DataUploadScreenState extends State<DataUploadScreen> {
     final result = await FilePicker.platform.pickFiles(type: FileType.image);
 
     if (result != null && result.files.isNotEmpty) {
+      if(!mounted) return;
+
       final titelController = TextEditingController();
       final beschreibungController = TextEditingController();
 
@@ -84,6 +90,8 @@ class _DataUploadScreenState extends State<DataUploadScreen> {
                       titelController.text,
                       beschreibungController.text,
                     );
+
+                    if(!mounted) return;
 
                     setState(() => _isUploading = false);
                     ScaffoldMessenger.of(context).showSnackBar(
