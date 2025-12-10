@@ -19,7 +19,6 @@ jobs:
         run: |
           pwd
           ls -la
-          ls -la db-sqlAlchemy-alembic
           ls -la backend_python
 
       - name: Create .env from Secret

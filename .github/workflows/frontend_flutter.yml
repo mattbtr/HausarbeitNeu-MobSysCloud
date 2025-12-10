@@ -19,7 +19,6 @@ jobs:
       run: |
         pwd
         ls -la
-        ls -la kundendokumentation_builder
         ls -la frontend_flutter
 
     - name: Install Flutter
