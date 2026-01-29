@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import '../../core/services/report_service.dart';
+import '../../core/services/ocr_service.dart';
 
 class DataUploadScreen extends StatefulWidget {
   final int reportId;
@@ -22,8 +23,7 @@ class _DataUploadScreenState extends State<DataUploadScreen> {
     );
 
     if (result != null && result.files.isNotEmpty) {
-
-      if(!mounted) return;
+      if (!mounted) return;
       setState(() => _isUploading = true);
       final file = File(result.files.single.path!);
       final success = await ReportService.uploadJsonEntries(
@@ -31,7 +31,7 @@ class _DataUploadScreenState extends State<DataUploadScreen> {
         file,
       );
 
-      if(!mounted) return;
+      if (!mounted) return;
       setState(() => _isUploading = false);
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -48,7 +48,7 @@ class _DataUploadScreenState extends State<DataUploadScreen> {
     final result = await FilePicker.platform.pickFiles(type: FileType.image);
 
     if (result != null && result.files.isNotEmpty) {
-      if(!mounted) return;
+      if (!mounted) return;
 
       final titelController = TextEditingController();
       final beschreibungController = TextEditingController();
@@ -65,11 +65,30 @@ class _DataUploadScreenState extends State<DataUploadScreen> {
                     controller: titelController,
                     decoration: const InputDecoration(labelText: "Titel"),
                   ),
+                  const SizedBox(height: 8),
                   TextField(
                     controller: beschreibungController,
                     decoration: const InputDecoration(
                       labelText: "Beschreibung",
                     ),
+                  ),
+                  const SizedBox(height: 12),
+                  OutlinedButton.icon(
+                    icon: const Icon(Icons.document_scanner),
+                    label: const Text("Text aus Bild erkennen (OCR)"),
+                    onPressed: () async {
+                      final file = File(result.files.single.path!);
+                      final ocrText = await OcrService.extractText(file);
+
+                      if (ocrText.isNotEmpty) {
+                        beschreibungController.text = ocrText;
+                      }
+
+                      if (!context.mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Text aus Bild erkannt")),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -91,7 +110,7 @@ class _DataUploadScreenState extends State<DataUploadScreen> {
                       beschreibungController.text,
                     );
 
-                    if(!mounted) return;
+                    if (!mounted) return;
 
                     setState(() => _isUploading = false);
                     ScaffoldMessenger.of(context).showSnackBar(

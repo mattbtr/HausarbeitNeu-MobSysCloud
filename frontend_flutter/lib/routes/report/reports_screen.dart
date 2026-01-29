@@ -18,6 +18,7 @@ class _ReportsOverviewScreenState extends State<ReportsOverviewScreen> {
     'Diese Woche',
     'Favoriten',
   ];
+  String searchQuery = '';
   List<Report> reports = [];
   bool isLoading = false;
 
@@ -72,6 +73,22 @@ class _ReportsOverviewScreenState extends State<ReportsOverviewScreen> {
         return reports;
     }
   }
+
+  List<Report> getFilteredAndSearchedReports() {
+    final baseList = getFilteredReports();
+
+    if (searchQuery.isEmpty) return baseList;
+
+    final query = searchQuery.toLowerCase();
+
+    return baseList.where((report) {
+      return report.titel.toLowerCase().contains(query)
+      // TODO: aktuell ocr text wird in beschreibung geschrieben. d.h. reicht aus wenn man beschreibung auch durchsucht -->später erweiterbar: indem eigenes textfeld für ocr text im bericht
+      || report.beschreibung.toLowerCase().contains(query) == true;
+      // || report.ocrText?.toLowerCase().contains(query) == true
+    }).toList();
+  }
+
 
   void _deleteReport(int index) async {
     final report = getFilteredReports()[index];
@@ -145,7 +162,7 @@ class _ReportsOverviewScreenState extends State<ReportsOverviewScreen> {
     final args = ModalRoute.of(context)?.settings.arguments;
     final bool forUpload = args is Map && args['forUpload'] == true;
 
-    final filteredReports = getFilteredReports();
+    final filteredReports = getFilteredAndSearchedReports();
     return Scaffold(
       appBar: AppBar(title: const Text('Berichte Übersicht')),
       body: Column(
@@ -168,6 +185,22 @@ class _ReportsOverviewScreenState extends State<ReportsOverviewScreen> {
               },
             ),
           ),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: TextField(
+              decoration: const InputDecoration(
+                labelText: 'Suche',
+                hintText: 'Titel oder erkannter Text',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (value) {
+                setState(() => searchQuery = value);
+              },
+            ),
+          ),
+
 
           if (forUpload)
             Padding(
