@@ -3,14 +3,29 @@ from fastapi.staticfiles import StaticFiles
 import os
 from app.database import engine
 from app import models
-#from app.firebase_auth import firebase_auth_setup
-from app.routes import kunden, standorte, abteilungen, anlagen, berichte
+from contextlib import asynccontextmanager
+
+from app.routes import kunden, standorte, abteilungen, anlagen, berichte, sync_berichte
+from app.firebase import init_firebase
 
 # erstellt Tabellen anhand Models --> auskommentiert, da Tabellen bereits mit sql angelegt zuvor
 # models.Base.metadata.create_all(bind=engine)
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """
+    Lifespan-Handler für Startup & Shutdown.
+    """
+    # -------- STARTUP --------
+    init_firebase()
+    yield
+    # -------- SHUTDOWN --------
+    # (optional: DB-Verbindungen, Worker etc. schließen)
+
 # initialisieren der FastAPI-app
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
+
+
 
 # Verzeichnis für Datei-Uploads
 UPLOAD_DIR = "uploads"
@@ -31,7 +46,8 @@ app.include_router(standorte.router)
 app.include_router(abteilungen.router)
 app.include_router(anlagen.router)
 app.include_router(berichte.router)
-#app.include_router(eintrag.router)
+#app.include_router(eintrag.router) --> in berichte.router enthalten
+app.include_router(sync_berichte.router)
 
 
 # Backend starten mit:

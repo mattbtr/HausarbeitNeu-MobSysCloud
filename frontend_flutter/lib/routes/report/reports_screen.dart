@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend_flutter/routes.dart';
 import '../../core/models/report_model.dart';
 import '../../core/services/report_service.dart';
+import '../../core/services/report_sync_service.dart';
+
 
 class ReportsOverviewScreen extends StatefulWidget {
   const ReportsOverviewScreen({super.key});
@@ -30,7 +32,13 @@ class _ReportsOverviewScreenState extends State<ReportsOverviewScreen> {
   Future<void> _loadReports() async {
     setState(() => isLoading = true);
     try {
-      reports = await ReportService.fetchReports();
+      await ReportSyncService.syncReadyReports();
+      final loadedReports = await ReportService.fetchReports();
+      
+      if (!mounted) return;
+      setState(() {
+        reports = loadedReports;
+      });
     } catch (e) {
       if(!mounted) return;
       ScaffoldMessenger.of(
@@ -99,7 +107,7 @@ class _ReportsOverviewScreenState extends State<ReportsOverviewScreen> {
     if (confirm != true) return;
 
     try {
-      await ReportService.deleteReport(reportId!);
+      await ReportService.deleteReport(reportId);
       if(!mounted) return;
       setState(() {
         reports.removeWhere((r) => r.id == reportId);

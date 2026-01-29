@@ -1,14 +1,23 @@
+// lib\core\services\report_service.dart
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:frontend_flutter/core/models/draft_report_model.dart';
 import 'package:logger/logger.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/report_model.dart';
 import '../models/eintrag_model.dart';
 import '../models/stammdaten_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 final logger = Logger();
 
 class ReportService {
+
+  /* wird nicht mehr genutzt:
+  neue Berichte werden nicht mehr direkt erstellt und in postgres übertragen sondern Sync übernimmt das !!
+
   static Future<int> submitReport(Report report) async {
     final url = Uri.parse('http://192.168.0.108:8000/berichte/');
     final payload = jsonEncode(report.toJson());
@@ -30,13 +39,19 @@ class ReportService {
     final responseData = jsonDecode(response.body);
     return responseData['id'] as int;
   }
+*/
 
   static Future<List<Report>> fetchReports() async {
+    debugPrint('📡 FETCH REPORTS START');
     final url = Uri.parse('http://192.168.0.108:8000/berichte/');
     final response = await http.get(url);
 
+    debugPrint('📥 STATUS: ${response.statusCode}');
+    debugPrint('📥 BODY: ${response.body}');
+
     if (response.statusCode == 200) {
       final List<dynamic> jsonList = jsonDecode(response.body);
+      debugPrint('📊 Reports geladen: ${jsonList.length}');
       return jsonList.map((json) {
         // Achtung: Backend liefert "erstellt_am", nicht "datum"
         // Wir passen das Mapping an:
@@ -48,9 +63,12 @@ class ReportService {
           anlageId: json['anlage_id'],
         );
       }).toList();
+      
+
     } else {
       throw Exception('Fehler beim Laden der Berichte: ${response.body}');
     }
+    
   }
 
   static Future<void> deleteReport(int reportId) async {
@@ -150,4 +168,44 @@ class ReportService {
       return false;
     }
   }
+
+  static Future<void> syncReport(DraftReport report) async {
+  final url = Uri.parse('http://192.168.0.108:8000/sync/berichte');
+
+  final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      throw Exception('User nicht eingeloggt');
+    }
+
+  final firebaseToken = await user.getIdToken(true);
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $firebaseToken',
+      
+    },
+    body: jsonEncode({
+      'uuid': report.uuid,
+      'titel': report.titel,
+      'beschreibung': report.beschreibung,
+      'anlage_id': report.anlageId,
+      'zuletzt_geaendert_am': report.lastModified.toIso8601String(),
+      'eintraege': [],
+    }),
+  );
+
+  debugPrint('Firebase Token: ${firebaseToken?.substring(0, 30)}...');
+
+
+  if (response.statusCode != 200) {
+    throw Exception('Sync fehlgeschlagen: ${response.body}');
+  }
 }
+
+
+
+}
+
+

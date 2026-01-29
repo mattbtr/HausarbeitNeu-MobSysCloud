@@ -16,7 +16,7 @@ class ReportDetailScreen extends StatefulWidget {
 }
 
 class _ReportDetailScreenState extends State<ReportDetailScreen> {
-  Report? report;
+  late Report report;
   List<Eintrag> eintraege = [];
   Stammdaten? stammdaten;
   bool isLoading = true;
@@ -45,10 +45,9 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
   }
 
   void _showExportOptions(BuildContext context) {
-    if (report == null || report!.id == null) return;
     showModalBottomSheet(
       context: context,
-      builder: (_) => ExportDialog(reportId: report!.id!),
+      builder: (_) => ExportDialog(reportId: report.id),
     );
   }
 
@@ -71,15 +70,9 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
         body: Center(child: Text(error)),
       );
     }
-    if (report == null) {
-      return Scaffold(
-        appBar: AppBar(title: const Text('Bericht nicht gefunden')),
-        body: const Center(child: Text('Bericht nicht gefunden')),
-      );
-    }
 
     return Scaffold(
-      appBar: AppBar(title: Text(report!.titel)),
+      appBar: AppBar(title: Text(report.titel)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -94,7 +87,7 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
             Text('Anlage: ${stammdaten?.anlage['name'] ?? 'Unbekannt'}'),
             const SizedBox(height: 8),
             Text(
-              'Erstellt am: ${report!.datum.toLocal().toString().split(' ')[0]}',
+              'Erstellt am: ${report.datum.toLocal().toString().split(' ')[0]}',
               style: const TextStyle(color: Colors.grey),
             ),
             const Divider(height: 24),
@@ -173,13 +166,8 @@ class _ReportDetailScreenState extends State<ReportDetailScreen> {
             ),
             ElevatedButton.icon(
               onPressed: () {
-                if (report!.id != null) {
-                  _editReport(context, report!.id!);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Bericht hat keine ID!')),
-                  );
-                }
+                _editReport(context, report.id);
+              
               },
               icon: const Icon(Icons.edit),
               label: const Text('Bearbeiten'),

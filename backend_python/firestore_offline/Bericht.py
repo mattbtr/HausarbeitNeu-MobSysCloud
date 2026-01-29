@@ -1,0 +1,9 @@
+Bericht(
+    titel=data["titel"],
+    beschreibung=data["beschreibung"],
+    erstellt_am=datetime.utcnow(),
+    anlage_id=data["anlage_id"],
+    firebase_uid=data["firebase_uid"],
+    nutzer_name=data["nutzer_name"],
+    nutzer_email=data["nutzer_email"]
+)

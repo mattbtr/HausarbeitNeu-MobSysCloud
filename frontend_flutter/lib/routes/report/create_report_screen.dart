@@ -4,12 +4,13 @@ import '../../core/models/kunde_model.dart';
 import '../../core/models/standort_model.dart';
 import '../../core/models/abteilung_model.dart';
 import '../../core/models/anlage_model.dart';
-import '../../core/models/report_model.dart';
 import '../../core/services/kunden_service.dart';
 import '../../core/services/standort_service.dart';
 import '../../core/services/abteilung_service.dart';
 import '../../core/services/anlagen_service.dart';
-import '../../core/services/report_service.dart';
+//import '../../core/services/report_service.dart';
+import '../../core/services/firestore_report_service.dart';
+import '../../core/services/report_sync_service.dart';
 
 final logger = Logger();
 
@@ -52,10 +53,6 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
   // Bericht Zustände
   // ignore: unused_field
   bool _isSubmitting = false;
-  // ignore: unused_field
-  bool _isReportSaved = false;
-  // ignore: unused_field
-  int? _reportId; // Speichert die ID des erstellten Reports
 
   @override
   void initState() {
@@ -141,34 +138,35 @@ class _CreateReportScreenState extends State<CreateReportScreen> {
 
     setState(() => _isSubmitting = true);
 
-    final report = Report(
-      titel: titel,
-      beschreibung: beschreibung,
-      datum: selectedDate,
-      anlageId: selectedAnlage!.id,
-    );
-
     try {
-      final result = await ReportService.submitReport(report);
-      if (!mounted) return;
-      
-      _reportId = result;
-      setState(() {
-        _isReportSaved = true;
-      });
+      await FirestoreReportService.saveDraftReport(
+        titel: titel,
+        beschreibung: beschreibung,
+        datum: selectedDate,
+        anlageId: selectedAnlage!.id,
+      );
 
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Bericht gespeichert")));
-      Navigator.pop(context);
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Bericht lokal gespeichert")),
+      );
+
+      await ReportSyncService.syncReadyReports();
+
+      Navigator.pop(context); // zurück zur Übersicht
     } catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("Fehler: $e")));
     } finally {
-      setState(() => _isSubmitting = false);
+      if (mounted) {
+        setState(() => _isSubmitting = false);
+      }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

@@ -1,24 +1,18 @@
+// Model für Postgres DB
 class Report {
-  final int? id; // Optional, falls nicht immer gesetzt
+  final int id;
   final String titel;
   final String beschreibung;
   final DateTime datum;
   final int anlageId;
 
   Report({
-    this.id,
+    required this.id,
     required this.titel,
     required this.beschreibung,
     required this.datum,
     required this.anlageId,
   });
-
-  Map<String, dynamic> toJson() => {
-    'titel': titel,
-    'beschreibung': beschreibung,
-    'erstellt_am': datum.toIso8601String(),
-    'anlage_id': anlageId,
-  };
 
   factory Report.fromJson(Map<String, dynamic> json) {
     return Report(
