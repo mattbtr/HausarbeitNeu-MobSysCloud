@@ -48,6 +48,7 @@ dev_dependencies:
   fake_cloud_firestore: ^4.0.0
   #integration_test:
     #sdk:flutter
+  firebase_core: any
 
 
 # The following section is specific to Flutter packages.
