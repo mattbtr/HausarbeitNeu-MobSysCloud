@@ -4,8 +4,8 @@ import 'package:mockito/mockito.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 
-import 'package:kundendokumentation_builder/features/report/data_upload.dart';
-import 'package:kundendokumentation_builder/core/services/report_service.dart';
+import 'package:frontend_flutter/routes/report/data_upload_screen.dart';
+import 'package:frontend_flutter/core/services/report_service.dart';
 
 // Mock ReportService
 class MockReportService extends Mock implements ReportService {}

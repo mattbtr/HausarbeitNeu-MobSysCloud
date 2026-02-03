@@ -4,7 +4,7 @@ import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:kundendokumentation_builder/features/profile/profile_screen.dart';
+import 'package:frontend_flutter/routes/profile/profile_screen.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 

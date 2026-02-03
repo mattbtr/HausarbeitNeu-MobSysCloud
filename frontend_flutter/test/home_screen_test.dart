@@ -5,9 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 
-import 'package:kundendokumentation_builder/features/home/home_screen.dart';
+import 'package:frontend_flutter/routes/home/home_screen.dart';
 // ignore: unused_import
-import 'package:kundendokumentation_builder/features/home/camera_screen.dart';
+import 'package:frontend_flutter/routes/home/camera_screen.dart';
 
 void main() {
   group('HomeScreen', () {

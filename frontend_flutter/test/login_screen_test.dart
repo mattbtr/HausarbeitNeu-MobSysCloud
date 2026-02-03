@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 
-import 'package:kundendokumentation_builder/features/auth/login_screen.dart';
-import 'package:kundendokumentation_builder/features/auth/register_screen.dart';
+import 'package:frontend_flutter/routes/auth/login_screen.dart';
+import 'package:frontend_flutter/routes/auth/register_screen.dart';
 
 void main() {
   group('LoginScreen', () {

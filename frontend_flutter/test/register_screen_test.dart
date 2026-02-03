@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:kundendokumentation_builder/features/auth/register_screen.dart';
+import 'package:frontend_flutter/routes/auth/register_screen.dart';
 
 class FakeFirestore extends Fake implements FirebaseFirestore {}
 
