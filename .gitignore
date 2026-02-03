@@ -2,7 +2,7 @@
 # Environment files
 .env
 *.env
-
+*.google-services-base64.txt
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
