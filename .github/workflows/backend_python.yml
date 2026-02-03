@@ -34,13 +34,13 @@ jobs:
       - name: List containers and status
         run: docker ps -a
 
-      - name: Show logs of backend-fastapi (on failure)
+      - name: Show logs of backend_python (on failure)
         if: failure()
-        run: docker logs backend-fastapi
+        run: docker logs backend_python
 
       - name: Run tests inside container
         run: |
-          docker exec backend_python pytest
+          docker exec backend_python pytest tests -v
         working-directory: backend_python
 
       - name: Lint with flake8 inside container

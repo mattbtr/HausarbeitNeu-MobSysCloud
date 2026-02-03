@@ -1,6 +1,6 @@
 services:
   hausarbeit:
-    image: hausarbeitNeu
+    image: hausarbeitneu
     build:
       context: .
       dockerfile: ./Dockerfile
