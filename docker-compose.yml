@@ -1,7 +1,7 @@
 services:
   hausarbeit:
-    container_name: backend-python
-    image: hausarbeitNeu
+    container_name: backend_python
+    image: hausarbeitneu
     build:
       context: ./backend_python
       dockerfile: Dockerfile
