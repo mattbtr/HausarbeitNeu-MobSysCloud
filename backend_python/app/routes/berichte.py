@@ -176,6 +176,39 @@ async def upload_image_eintrag(
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=str(e))
+    
+@router.post("/{bericht_id}/eintraege/text")
+async def upload_text_eintrag(
+    bericht_id: int,
+    payload: dict,
+    db: Session = Depends(get_db)
+):
+    bericht = db.query(models.Bericht).get(bericht_id)
+    if not bericht:
+        raise HTTPException(status_code=404, detail="Bericht nicht gefunden")
+
+    titel = payload.get("titel")
+    inhalt = payload.get("inhalt")
+
+    if not titel or not inhalt:
+        raise HTTPException(
+            status_code=400,
+            detail="Felder 'titel' und 'inhalt' sind erforderlich"
+        )
+
+    try:
+        db_eintrag = models.Eintrag(
+            titel=titel,
+            beschreibung=inhalt,
+            wert=None,
+            bericht_id=bericht_id,
+        )
+        db.add(db_eintrag)
+        db.commit()
+        return {"detail": "OCR-Text gespeichert"}
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/{bericht_id}/export/pdf")

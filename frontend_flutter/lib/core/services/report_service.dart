@@ -150,4 +150,38 @@ class ReportService {
       return false;
     }
   }
+
+   // Text-Eintrag (z. B. OCR-Ergebnis)
+  static Future<bool> uploadTextEntry(
+    int reportId,
+    String titel,
+    String inhalt,
+  ) async {
+    try {
+      final url = Uri.parse(
+        'http://192.168.0.108:8000/berichte/$reportId/eintraege/text',
+      );
+
+      final payload = jsonEncode({'titel': titel, 'inhalt': inhalt});
+
+      logger.e('➡️ POST $url');
+      logger.e('📦 Body: $payload');
+
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: payload,
+      );
+
+      logger.e('⬅️ Status: ${response.statusCode}');
+      logger.e('⬅️ Response: ${response.body}');
+
+      return response.statusCode == 200 || response.statusCode == 201;
+    } catch (e) {
+      logger.e('❌ uploadTextEntry error: $e');
+      return false;
+    }
+  }
+
+
 }
