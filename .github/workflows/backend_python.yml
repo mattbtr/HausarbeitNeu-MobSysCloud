@@ -27,6 +27,7 @@ jobs:
 
       - name: Build and start services with Docker Compose
         run: docker compose up -d --build
+        working-directory: . # Root-Verzeichnis
 
       - name: Wait for backend to be ready
         run: sleep 10
@@ -40,8 +41,7 @@ jobs:
 
       - name: Run tests inside container
         run: |
-          docker exec backend_python pytest tests -v
-        working-directory: backend_python
+          run: docker exec backend_python pytest /app/backend_python
 
       - name: Lint with flake8 inside container
         run: |

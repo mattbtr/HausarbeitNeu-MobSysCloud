@@ -32,6 +32,10 @@ jobs:
       run: echo "${{ secrets.FRONTEND_ENV }}" > .env
       working-directory: frontend_flutter
 
+    - name: Create google-services.json from Secret
+      run: echo "${{ secrets.SERVICE_ACCOUNT }}" > android/app/google-services.json
+      working-directory: frontend_flutter
+
     - name: Install dependencies
       run: flutter pub get
       working-directory: frontend_flutter
