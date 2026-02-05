@@ -1,0 +1,17 @@
+[
+    {
+        "titel": "Tidalvolumen",
+        "beschreibung": "Aktuell eingestelltes Atemvolumen",
+        "wert": "480 ml"
+    },
+    {
+        "titel": "O₂-Konzentration", 
+        "beschreibung": "Sauerstoffanteil in der Beatmungsluft",
+        "wert": "40 %"
+    },
+    {
+        "titel": "Atemfrequenz",
+        "beschreibung": "Eingestellte Atemfrequenz pro Minute",
+        "wert": "16/min"
+    }
+]

@@ -16,12 +16,10 @@ void main() {
 
   group('ProfileScreen (Smoke Tests mit Mocks)', () {
     late MockUser mockUser;
-    late MockFirebaseAuth mockAuth;
     late FakeFirebaseFirestore fakeFirestore;
 
     setUp(() {
       mockUser = MockUser(uid: 'user123', email: 'test@example.com');
-      mockAuth = MockFirebaseAuth(mockUser: mockUser, signedIn: true);
 
       fakeFirestore = FakeFirebaseFirestore();
       // User-Daten in Fake Firestore anlegen

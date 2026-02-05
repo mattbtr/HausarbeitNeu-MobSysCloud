@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:file_picker/file_picker.dart';
-import 'dart:io';
 
 import 'package:frontend_flutter/routes/report/data_upload_screen.dart';
 import 'package:frontend_flutter/core/services/report_service.dart';
@@ -13,10 +11,8 @@ class MockReportService extends Mock implements ReportService {}
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  late MockReportService reportService;
 
   setUp(() {
-    reportService = MockReportService();
   });
 
   group('DataUploadScreen Widget Tests', () {

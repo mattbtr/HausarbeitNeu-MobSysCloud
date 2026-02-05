@@ -1,0 +1,17 @@
+[
+    {
+        "titel": "Probenkapazität",
+        "beschreibung": "Maximaler Durchsatz pro Stunde",
+        "wert": "60 Proben/h"
+    },
+    {
+        "titel": "Reagenzfüllstand",
+        "beschreibung": "Verbrauchsmaterial Kapazität",
+        "wert": "72 %"
+    },
+    {
+        "titel": "Kalibrierungsstatus",
+        "beschreibung": "Letzte Kalibrierungsergebnis",
+        "wert": "Im Referenzbereich"
+    }
+]

@@ -67,7 +67,7 @@ class _ReportsOverviewScreenState extends State<ReportsOverviewScreen> {
             )
             .toList();
       case 'Favoriten':
-        // TODO: Favoriten-Logik einbauen, falls du eine Favoriten-Funktion hast
+        // TODO: Favoriten-Logik einbauen
         return reports;
       default:
         return reports;
@@ -83,7 +83,7 @@ class _ReportsOverviewScreenState extends State<ReportsOverviewScreen> {
 
     return baseList.where((report) {
       return report.titel.toLowerCase().contains(query)
-      // TODO: aktuell ocr text wird in beschreibung geschrieben. d.h. reicht aus wenn man beschreibung auch durchsucht -->später erweiterbar: indem eigenes textfeld für ocr text im bericht
+      // TODO
       || report.beschreibung.toLowerCase().contains(query) == true;
       // || report.ocrText?.toLowerCase().contains(query) == true
     }).toList();

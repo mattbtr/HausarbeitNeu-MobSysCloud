@@ -56,6 +56,7 @@ class _DataUploadScreenState extends State<DataUploadScreen> {
     final beschreibungController = TextEditingController();
 
     await showDialog(
+      // ignore: use_build_context_synchronously
       context: context,
       builder:
           (_) => AlertDialog(
@@ -125,6 +126,7 @@ class _DataUploadScreenState extends State<DataUploadScreen> {
     final textController = TextEditingController(text: ocrText);
 
     await showDialog(
+      // ignore: use_build_context_synchronously
       context: context,
       builder:
           (_) => AlertDialog(
